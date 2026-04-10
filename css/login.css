@@ -1,0 +1,162 @@
+/* reset и базовые стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #000000 0%, #3a3a3a 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/* общий контейнер для формы (на случай, если понадобится дополнительная обёртка) */
+h2, form, .login-form, .error, .message-error, p {
+    width: 100%;
+    max-width: 420px;
+}
+
+/* стили для формы (используется и в registration, и внутри .login-form) */
+form, .login-form {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+form:hover, .login-form:hover {
+    transform: translateY(-2px);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+/* общие метки */
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+/* поля ввода */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s linear;
+    background-color: #fafafa;
+}
+
+input:focus {
+    outline: none;
+    border-color: #0e0e0e;
+    box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.2);
+    background-color: #fff;
+}
+
+/* кнопка */
+button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #777777 0%, #000000 100%);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 0.5rem;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #000000 0%, #6d6d6d 100%);
+    transform: scale(1.01);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* сообщения об ошибках (общий стиль для .error и .message-error) */
+.error, .message-error {
+    background-color: #fee2e2;
+    border-left: 5px solid #e53e3e;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    color: #c53030;
+    font-size: 0.9rem;
+}
+
+.error p {
+    margin: 5px 0;
+    max-width: 100%;
+}
+
+/* текст-ссылка под формой */
+p {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #f0f0f0;
+}
+
+a {
+    color: #ffd966;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: #ffecb3;
+    text-decoration: underline;
+}
+
+/* дополнительный класс для .form-group (используется в login.php) */
+.form-group {
+    margin-bottom: 0.5rem;
+}
+
+/* адаптивность для маленьких экранов */
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+    }
+
+    form, .login-form {
+        padding: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        padding: 10px 12px;
+        margin-bottom: 1rem;
+    }
+
+    button {
+        padding: 10px;
+    }
+}

@@ -1,0 +1,41 @@
+<?php
+session_start();
+header('Content-Type: application/json');
+require_once '../includes/db.php';
+
+$username = trim($_POST['username'] ?? '');
+$email    = trim($_POST['email'] ?? '');
+$password = $_POST['password'] ?? '';
+
+if (empty($username) || empty($email) || empty($password)) {
+    echo json_encode(['success' => false, 'message' => 'Заполните все поля']);
+    exit;
+}
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo json_encode(['success' => false, 'message' => 'Некорректный email']);
+    exit;
+}
+if (strlen($password) < 6) {
+    echo json_encode(['success' => false, 'message' => 'Пароль должен быть не менее 6 символов']);
+    exit;
+}
+
+$stmt = $pdo->prepare("SELECT id FROM users WHERE email = ? OR username = ?");
+$stmt->execute([$email, $username]);
+if ($stmt->fetch()) {
+    echo json_encode(['success' => false, 'message' => 'Пользователь с таким email или именем уже существует']);
+    exit;
+}
+
+$hashed = password_hash($password, PASSWORD_DEFAULT);
+$stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+if ($stmt->execute([$username, $email, $hashed])) {
+    $userId = $pdo->lastInsertId();
+    $_SESSION['user_id'] = $userId;
+    $_SESSION['username'] = $username;
+    $_SESSION['email'] = $email;
+    echo json_encode(['success' => true, 'username' => $username, 'message' => 'Регистрация успешна']);
+} else {
+    echo json_encode(['success' => false, 'message' => 'Ошибка регистрации']);
+}
+
